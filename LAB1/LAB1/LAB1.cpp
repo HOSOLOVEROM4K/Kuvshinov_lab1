@@ -1,7 +1,20 @@
 ﻿#include <iostream>
 
-
 using namespace std;
+
+struct Pipe {
+    string kilometr;
+    int length;
+    int diametr;
+    bool repair;
+};
+
+struct Ks {
+    string name;
+    int workshops;
+    int workshops_in_work;
+    double eff;
+};
 
 void menu() {
     setlocale(LC_ALL, "");
@@ -24,7 +37,7 @@ int main() {
         menu();
         cout << "Выберете команду: ";
         cin >> input_index;
-        cout << "Индекс вашей программы: " << input_index << endl;
+
 
     } while (input_index != 0);
 }
