@@ -4,7 +4,7 @@
 using namespace std;
 
 struct pipe {
-    string kilometr;
+    string name;
     int length;
     int diametr;
     bool repair;
@@ -51,7 +51,7 @@ pipe pipe_input() {
     pipe newpipe;
     cout << "Введите название трубы: ";
     cin.ignore();
-    getline(cin, newpipe.kilometr);
+    getline(cin, newpipe.name);
     cout << "Введите длинну: ";
     check_int(newpipe.length);
     cout << "Введите диаметр: ";
@@ -63,12 +63,12 @@ pipe pipe_input() {
 
 void pipe_out(const pipe& newpipe) {  
 
-    if (newpipe.kilometr.empty()) {
+    if (newpipe.name.empty()) {
         cout << "Нет данных." << endl;
     }
     else {
         cout << "-------------" << endl;
-        cout << "Имя: " << newpipe.kilometr << endl;
+        cout << "Имя: " << newpipe.name << endl;
         cout << "Длинна: " << newpipe.length << endl;
         cout << "Диаметр: " << newpipe.diametr << endl;
         
@@ -93,6 +93,11 @@ ks ks_input() {
     check_int(newks.workshops);
     cout << "Введите количество цехов в работе: ";
     check_int(newks.workshops_in_work);
+    while (newks.workshops < newks.workshops_in_work) {
+        cout << "Колличество работающих станций должно быть меньше количества станций!!!" << endl;
+        cout << "Введите количество цехов в работе: ";
+        check_int(newks.workshops_in_work);
+    }
     cout << "Эффективность КС: ";
     check_double(newks.eff);
     return newks;
@@ -113,6 +118,24 @@ void ks_out(const ks& newks) {
         cout << "Эффективность: " << newks.eff << endl;
         cout << "-------------" << endl;
     }
+}
+
+pipe pipe_change(pipe& newpipe) {
+    newpipe.repair = !newpipe.repair;
+    cout << "Статус изменен на: " << newpipe.repair << endl;
+    return newpipe;
+}
+ks ks_change(ks& newks) {
+    cout << "Количество цехов в работе: " << endl;
+    check_int(newks.workshops_in_work);
+    while (newks.workshops < newks.workshops_in_work) {
+        cout << "Колличество работающих станций должно быть меньше количества станций" << endl;
+        check_int(newks.workshops_in_work);
+    }
+    cout << "Эффективность: " << endl;
+    check_double(newks.eff);
+
+    return newks;
 }
 
 void menu() {
@@ -154,6 +177,24 @@ int main() {
             pipe_out(newpipe);
             cout << "КС" << endl;
             ks_out(newks);
+            break;
+        }
+        case 4: {
+            if (newpipe.name.empty()) {
+                cout << "Нет трубы" << endl;
+            }
+            else {
+                pipe_change(newpipe);
+            }
+            break;
+        }
+        case 5: {
+            if (newks.name.empty()) {
+                cout << "Нет КС" << endl;
+            }
+            else {
+                ks_change(newks);
+            }
             break;
         }
         }
