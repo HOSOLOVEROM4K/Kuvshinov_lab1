@@ -47,6 +47,7 @@ void check_double(double& x) {
 }
 
 pipe pipe_input() {
+    
     pipe newpipe;
     cout << "Введите название трубы: ";
     cin.ignore();
@@ -60,25 +61,62 @@ pipe pipe_input() {
     return newpipe;
 }
 
-void pipe_out(const pipe& newpipe) {
+void pipe_out(const pipe& newpipe) {  
+
     if (newpipe.kilometr.empty()) {
-        cout << "Нет данных" << endl;
+        cout << "Нет данных." << endl;
     }
     else {
+        cout << "-------------" << endl;
         cout << "Имя: " << newpipe.kilometr << endl;
         cout << "Длинна: " << newpipe.length << endl;
         cout << "Диаметр: " << newpipe.diametr << endl;
+        
         if (newpipe.repair == 0) {
-            cout << "В ремонте нет" << endl;
+            cout << "В ремонте нет." << endl;
+            cout << "-------------" << endl;
         }
         else {
-            cout << "В ремонте да" << endl;
+            cout << "В ремонте да." << endl;
+            cout << "-------------" << endl;
         }
     }
 }
 
+ks ks_input() {
+    
+    ks newks;
+    cout << "Введите название КС: ";
+    cin.ignore();
+    getline(cin, newks.name);
+    cout << "Введите количество цехов: ";
+    check_int(newks.workshops);
+    cout << "Введите количество цехов в работе: ";
+    check_int(newks.workshops_in_work);
+    cout << "Эффективность КС: ";
+    check_double(newks.eff);
+    return newks;
+}
+
+void ks_out(const ks& newks) { 
+
+    if (newks.name.empty()) {
+        cout << "-------------" << endl;
+        cout << "Нет данных." << endl;
+        cout << "-------------" << endl;
+    }
+    else {
+        cout << "-------------" << endl;
+        cout << "Имя: " << newks.name << endl;
+        cout << "Количество цехов: " << newks.workshops << endl;
+        cout << "Количество цехов в работе: " << newks.workshops_in_work << endl;
+        cout << "Эффективность: " << newks.eff << endl;
+        cout << "-------------" << endl;
+    }
+}
+
 void menu() {
-    setlocale(LC_ALL, "");
+    
     cout << "1. Добавить трубу" << endl;
     cout << "2. Добавить КС" << endl;
     cout << "3. Просмотр всех объектов" << endl;
@@ -92,7 +130,9 @@ void menu() {
 
 
 int main() {
+    setlocale(LC_ALL, "RU");
     pipe newpipe;
+    ks newks;
     int input_index;
     do {
         menu();
@@ -105,9 +145,15 @@ int main() {
             newpipe = pipe_input();
             break;
         }
+        case 2: {
+            newks = ks_input();
+            break;
+        }
         case 3: {
-            cout << "Трубы:" << endl;
+            cout << "Труба:" << endl;
             pipe_out(newpipe);
+            cout << "КС" << endl;
+            ks_out(newks);
             break;
         }
         }
