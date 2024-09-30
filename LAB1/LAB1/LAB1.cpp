@@ -138,6 +138,8 @@ ks ks_change(ks& newks) {
     return newks;
 }
 
+
+
 void menu() {
     
     cout << "1. Добавить трубу" << endl;
@@ -163,40 +165,53 @@ int main() {
         cin >> input_index;
 
         switch (input_index)
-        {
-        case 1: {
-            newpipe = pipe_input();
-            break;
-        }
-        case 2: {
-            newks = ks_input();
-            break;
-        }
-        case 3: {
-            cout << "Труба:" << endl;
-            pipe_out(newpipe);
-            cout << "КС" << endl;
-            ks_out(newks);
-            break;
-        }
-        case 4: {
-            if (newpipe.name.empty()) {
-                cout << "Нет трубы" << endl;
+            {
+            case 1: {
+                newpipe = pipe_input();
+                break;
             }
-            else {
-                pipe_change(newpipe);
+            case 2: {
+                newks = ks_input();
+                break;
             }
-            break;
-        }
-        case 5: {
-            if (newks.name.empty()) {
-                cout << "Нет КС" << endl;
+            case 3: {
+                cout << "Труба:" << endl;
+                pipe_out(newpipe);
+                cout << "КС" << endl;
+                ks_out(newks);
+                break;
             }
-            else {
-                ks_change(newks);
+            case 4: {
+                if (newpipe.name.empty()) {
+                    cout << "Нет трубы" << endl;
+                }
+                else {
+                    pipe_change(newpipe);
+                }
+                break;
             }
-            break;
-        }
+            case 5: {
+                if (newks.name.empty()) {
+                    cout << "Нет КС" << endl;
+                }
+                else {
+                    ks_change(newks);
+                }
+                break;
+            }
+            case 6: {
+
+            }
+            case 7: {
+
+            }
+            case 0: {
+                break;
+            }
+            default: {
+                cout << "Вы ввели неправильное значение!!!" << endl;
+                break;
+            }
         }
 
 
