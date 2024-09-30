@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -138,6 +139,48 @@ ks ks_change(ks& newks) {
     return newks;
 }
 
+void save_to_file(const pipe& p, const ks& k) {
+    ofstream fout("data.txt");
+    if (fout.is_open()) {
+        fout << p.name << endl;
+        fout << p.length << endl;
+        fout << p.diametr << endl;
+        fout << p.repair << endl;
+
+        fout << k.name << endl;
+        fout << k.workshops << endl;
+        fout << k.workshops_in_work << endl;
+        fout << k.eff << endl;
+
+        fout.close();
+        cout << "Данные успешно сохранены!" << endl;
+    }
+    else {
+        cout << "Ошибка открытия файла!" << endl;
+    }
+}
+
+void load_from_file(pipe& p, ks& k) {
+    ifstream fin("data.txt");
+    if (fin.is_open()) {
+        getline(fin, p.name);
+        fin >> p.length;
+        fin >> p.diametr;
+        fin >> p.repair;
+        fin.ignore();  // Чтобы пропустить символ конца строки после bool
+
+        getline(fin, k.name);
+        fin >> k.workshops;
+        fin >> k.workshops_in_work;
+        fin >> k.eff;
+
+        fin.close();
+        cout << "Данные успешно загружены!" << endl;
+    }
+    else {
+        cout << "Ошибка открытия файла!" << endl;
+    }
+}
 
 
 void menu() {
@@ -200,10 +243,12 @@ int main() {
                 break;
             }
             case 6: {
-
+                save_to_file(newpipe, newks);
+                break;
             }
             case 7: {
-
+                load_from_file(newpipe, newks);
+                break;
             }
             case 0: {
                 break;
